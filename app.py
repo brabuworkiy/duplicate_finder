@@ -52,5 +52,16 @@ def main():
                 file_name='GENERATED_LEAD_without_duplicates.csv',
                 mime='text/csv')
 
+        # Display summary table
+        summary_data = {
+            "Count of Duplicate": len(df2) - len(compared_df),
+            "Count of Self Duplicate": len(df2) - len(df2.drop_duplicates(subset=['Email Address'])),
+            "Count of Uploaded Generated Lead": len(df2),
+            "Count after Removing Duplicates": len(compared_df)
+        }
+        summary_df = pd.DataFrame([summary_data])
+        st.write("Summary:")
+        st.dataframe(summary_df)
+
 if __name__ == "__main__":
     main()
