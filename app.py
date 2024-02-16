@@ -1,14 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-st.markdown("""
-<style>
-#baseButton-header {
-    display: none !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
 
 def remove_duplicates(df1, df2):
     # Remove duplicates from df1 based on 'Email Address' column
