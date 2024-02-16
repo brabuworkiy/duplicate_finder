@@ -3,13 +3,16 @@ import pandas as pd
 
 
 def remove_duplicates(df1, df2):
-    # Remove duplicates from df1 and df2 individually
-    df1_duplicates_removed = df1.drop_duplicates()
-    df2_duplicates_removed = df2.drop_duplicates()
+    # Remove duplicates from df1 based on 'Email Address' column
+    df1_duplicates_removed = df1.drop_duplicates(subset=['Email Address'])
 
-    # Concatenate the two dataframes and drop duplicates
-    merged = pd.concat([df1_duplicates_removed, df2_duplicates_removed]).drop_duplicates(keep=False)
-    return merged
+    # Remove rows from df2 if email addresses match any in df1
+    df2_filtered = df2[~df2['Email Address'].isin(df1_duplicates_removed['Email Address'])]
+
+    # Remove duplicates from df2 itself based on 'Email Address' column
+    df2_duplicates_removed = df2_filtered.drop_duplicates(subset=['Email Address'])
+
+    return df2_duplicates_removed
 
 
 def main():
@@ -48,7 +51,6 @@ def main():
                 data=csv,
                 file_name='GENERATED_LEAD_without_duplicates.csv',
                 mime='text/csv')
-
 
 if __name__ == "__main__":
     main()
