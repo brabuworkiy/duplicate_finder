@@ -33,6 +33,11 @@ st.markdown(
         color:white;
   
     }
+
+       .st-emotion-cache-10trblm {
+    position: relative; /* Ensure the element is positioned relatively */
+    top: -160px; /* Adjust the top position */
+}
     .st-emotion-cache-1aehpvj.e1bju1570,
 .st-emotion-cache-16idsys.e1nzilvr5 {
     display: none !important;
