@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import base64
 
 hide_st_style = """
            <style>
@@ -11,6 +12,106 @@ hide_st_style = """
 """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
+st.markdown("""
+
+<style>
+    [data-testid=stSidebar] {
+        background-color: #ff000018;
+        color:#ff000010;
+      
+
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <style>
+    .st-emotion-cache-taue2i {
+        background-color: rgba(-255, -255, -255, 0.2); /* Adjust the alpha value (last parameter) to set transparency */
+        border-radius: 8px; /* Optional: Add border-radius for a rounded look */
+        color:white;
+  
+    }
+    .st-emotion-cache-1aehpvj.e1bju1570,
+.st-emotion-cache-16idsys.e1nzilvr5 {
+    display: none !important;
+}
+    
+    
+    .st-emotion-cache-1aehpvj.e1bju1570 {
+    display: none !important;
+}
+    
+    .st-emotion-cache-6qob1r eczjsme3{
+        background-color: rgba(-255, -255, -255, 0.2); /* Adjust the alpha value (last parameter) to set transparency */
+        border-radius: 8px; /* Optional: Add border-radius for a rounded look */
+        color:white;
+  
+  
+    }
+    
+     .st-emotion-cache-16txtl3 eczjsme4{
+        background-color: rgba(-255, -255, -255, 0.2); /* Adjust the alpha value (last parameter) to set transparency */
+        border-radius: 8px; /* Optional: Add border-radius for a rounded look */
+        color:white;
+  
+  
+    }
+    
+   .st-emotion-cache-6qob1r eczjsme3{
+       background-color: rgba(255, 255, 255, 0.2); /* Adjust the alpha value (last parameter) to set transparency */
+        border-radius: 8px; /* Optional: Add border-radius for a rounded look */
+        color:white;
+  
+
+}
+
+    .st-emotion-cache-taue2i input,
+    .st-emotion-cache-taue2i button {
+        opacity: 0.8; /* Adjust the opacity of the input and button */
+        color:"blue";
+        color:black;
+    }
+
+    .st-emotion-cache-taue2i input:hover,
+    .st-emotion-cache-taue2i button:hover {
+        opacity: 1; /* Adjust the opacity when hovering over the input and button */
+    }
+    
+  
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
+
+
+
+
+def get_base64(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+def set_background(png_file):
+    bin_str = get_base64(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    background-image: url("data:image/png;base64,%s");
+    background-size: cover;
+    background-position: center;
+    }
+    </style>
+    ''' % bin_str
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+
+
+set_background('img.jpg')
 
 
 def remove_duplicates(df1, df2):
@@ -73,6 +174,7 @@ def main():
         summary_df = pd.DataFrame([summary_data])
         st.write("Summary:")
         st.dataframe(summary_df)
+
 
 if __name__ == "__main__":
     main()
