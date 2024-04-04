@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 st.set_page_config(
-    page_title="workiy-LGDF",
+    page_title="workiy-LDF",
     page_icon="icon.png",  # Provide the path to your favicon image
 )
 
