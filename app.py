@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 import base64
 
+st.set_page_config(
+    page_title="workiy-LGDF",
+    page_icon="icon.png",  # Provide the path to your favicon image
+)
+
 hide_st_style = """
            <style>
            #MainMenu {Visibility: hidden;}
@@ -33,11 +38,12 @@ st.markdown(
         color:white;
   
     }
-
-       .st-emotion-cache-10trblm {
+    
+   .st-emotion-cache-10trblm {
     position: relative; /* Ensure the element is positioned relatively */
     top: -160px; /* Adjust the top position */
 }
+
     .st-emotion-cache-1aehpvj.e1bju1570,
 .st-emotion-cache-16idsys.e1nzilvr5 {
     display: none !important;
