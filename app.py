@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 st.set_page_config(
-    page_title="workiy-LDF",
+    page_title="workiy-LGDF",
     page_icon="icon.png",  # Provide the path to your favicon image
 )
 
@@ -35,7 +35,7 @@ st.markdown(
     .st-emotion-cache-taue2i {
         background-color: rgba(-255, -255, -255, 0.2); /* Adjust the alpha value (last parameter) to set transparency */
         border-radius: 8px; /* Optional: Add border-radius for a rounded look */
-        color:white;
+      color: rgb(255, 254, 156);
   
     }
     
@@ -45,7 +45,7 @@ st.markdown(
 }
 
     .st-emotion-cache-1aehpvj.e1bju1570,
-.st-emotion-cache-16idsys.e1nzilvr5 {
+.st-emotion-cache-16idsys.e1nzilvr5,st-emotion-cache-l9bjmx e1nzilvr5 {
     display: none !important;
 }
     
@@ -61,6 +61,8 @@ st.markdown(
   
   
     }
+
+ 
     
      .st-emotion-cache-16txtl3 eczjsme4{
         background-color: rgba(-255, -255, -255, 0.2); /* Adjust the alpha value (last parameter) to set transparency */
@@ -89,6 +91,7 @@ st.markdown(
     .st-emotion-cache-taue2i button:hover {
         opacity: 1; /* Adjust the opacity when hovering over the input and button */
     }
+    
     
   
     </style>
@@ -122,7 +125,7 @@ def set_background(png_file):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
-set_background('img.jpg')
+set_background('img1.jpg')
 
 
 def remove_duplicates(df1, df2):
@@ -139,14 +142,15 @@ def remove_duplicates(df1, df2):
 
 
 def main():
-    st.title('LEAD GENERATION DUPLICATE FINDER')
-    st.sidebar.subheader("LEAD GENERATION DUPLICATE FINDER")
+    st.title('LEADS  DUPLICATE  FINDER')
+    st.sidebar.subheader("LEADS DUPLICATE FINDER")
 
-    st.sidebar.write("LEAD DATA BASE Excel file:")
+    st.sidebar.markdown("<span style='color: red;'>LEAD DATA BASE Excel file:</span>", unsafe_allow_html=True)
     uploaded_file1 = st.sidebar.file_uploader("Choose a file", type=['xlsx'], key="uploader1")
 
-    st.sidebar.write("GENERATED LEAD Excel file:")
+    st.sidebar.markdown("<span style='color: green;'>GENERATED LEAD Excel file:</span>", unsafe_allow_html=True)
     uploaded_file2 = st.sidebar.file_uploader("Choose a file", type=['xlsx'], key="uploader2")
+
 
     if uploaded_file1 is not None and uploaded_file2 is not None:
         df1 = pd.read_excel(uploaded_file1)
