@@ -92,7 +92,7 @@ st.markdown(
         opacity: 1; /* Adjust the opacity when hovering over the input and button */
     }
     
-    .uploadedFile {
+    .st-emotion-cache-1v7f65g .e1b2p2ww5 {
     color: black;
 
 }
