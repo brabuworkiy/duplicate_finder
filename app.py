@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 
 st.set_page_config(
-    page_title="workiy-LDF",
+    page_title="workiy-LGDF",
     page_icon="icon.png",  # Provide the path to your favicon image
 )
 
@@ -92,17 +92,17 @@ st.markdown(
         opacity: 1; /* Adjust the opacity when hovering over the input and button */
     }
     
+    .uploadedFile {
+    color: black;
+
+}
+
     
   
     </style>
     """,
     unsafe_allow_html=True
 )
-
-
-
-
-
 
 
 def get_base64(bin_file):
@@ -151,44 +151,47 @@ def main():
     st.sidebar.markdown("<span style='color: green;'>GENERATED LEAD Excel file:</span>", unsafe_allow_html=True)
     uploaded_file2 = st.sidebar.file_uploader("Choose a file", type=['xlsx'], key="uploader2")
 
+    try:
+        if uploaded_file1 is not None and uploaded_file2 is not None:
+            df1 = pd.read_excel(uploaded_file1)
+            df2 = pd.read_excel(uploaded_file2)
 
-    if uploaded_file1 is not None and uploaded_file2 is not None:
-        df1 = pd.read_excel(uploaded_file1)
-        df2 = pd.read_excel(uploaded_file2)
+            st.write("LEAD DATA BASE:")
+            st.write(df1)
 
-        st.write("LEAD DATA BASE:")
-        st.write(df1)
+            st.write("GENERATED LEAD:")
+            st.write(df2)
 
-        st.write("GENERATED LEAD:")
-        st.write(df2)
+            st.write("Comparing Data...")
+            compared_df = remove_duplicates(df1, df2)
 
-        st.write("Comparing Data...")
-        compared_df = remove_duplicates(df1, df2)
+            if compared_df.empty:
+                st.write("No duplicates found in the second uploaded data.")
+            else:
+                st.write("GENERATED LEAD without Duplicates:")
+                st.write(compared_df)
 
-        if compared_df.empty:
-            st.write("No duplicates found in the second uploaded data.")
-        else:
-            st.write("GENERATED LEAD without Duplicates:")
-            st.write(compared_df)
+                st.write("Download the GENERATED LEAD without Duplicates:")
+                csv = compared_df.to_csv(index=False)
+                st.download_button(
+                    label="Download Data as CSV",
+                    data=csv,
+                    file_name='GENERATED_LEAD_without_duplicates.csv',
+                    mime='text/csv')
 
-            st.write("Download the GENERATED LEAD without Duplicates:")
-            csv = compared_df.to_csv(index=False)
-            st.download_button(
-                label="Download Data as CSV",
-                data=csv,
-                file_name='GENERATED_LEAD_without_duplicates.csv',
-                mime='text/csv')
-
-        # Display summary table
-        summary_data = {
-            "Count of Duplicate": len(df2) - len(compared_df),
-            "Count of Self Duplicate": len(df2) - len(df2.drop_duplicates(subset=['Email Address'])),
-            "Count of Uploaded Generated Lead": len(df2),
-            "Count after Removing Duplicates": len(compared_df)
-        }
-        summary_df = pd.DataFrame([summary_data])
-        st.write("Summary:")
-        st.dataframe(summary_df)
+            # Display summary table
+            summary_data = {
+                "Count of Duplicate": len(df2) - len(compared_df),
+                "Count of Self Duplicate": len(df2) - len(df2.drop_duplicates(subset=['Email Address'])),
+                "Count of Uploaded Generated Lead": len(df2),
+                "Count after Removing Duplicates": len(compared_df)
+            }
+            summary_df = pd.DataFrame([summary_data])
+            st.write("Summary:")
+            st.dataframe(summary_df)
+    except Exception as e:
+        # If any error occurs, show a default message
+        st.error("An error occurred. Please try again or check your input files.")
 
 
 if __name__ == "__main__":
